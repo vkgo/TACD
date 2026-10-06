@@ -27,6 +27,8 @@ Text-to-motion in 8 sampling steps, distilled from HY-Motion 1.0.
 
 🌐 Project page: [https://vkgo.github.io/TACD/](https://vkgo.github.io/TACD/)
 
+💻 Code: [https://github.com/vkgo/TACD](https://github.com/vkgo/TACD)
+
 - <u>**268 ms per motion and 2.62 GB peak GPU memory in bf16**</u>, vs 2077 ms and 17.63 GB for the
   50-step HY-Motion 1.0 teacher: <u>**7.7× faster, 6.7× less memory**</u> (RTX L40, batch 1)
 - 465M HY-Motion-1.0-Lite denoiser with a Qwen3-0.6B text encoder
