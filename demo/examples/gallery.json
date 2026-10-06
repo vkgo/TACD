@@ -1,0 +1,26 @@
+[
+ {
+  "prompt": "A person walks forward, turns around and waves with the right hand.",
+  "duration": 5.0,
+  "seeds": "1",
+  "filename": "walk_turn_wave"
+ },
+ {
+  "prompt": "A person jumps twice with arms relaxed at the sides.",
+  "duration": 4.0,
+  "seeds": "3",
+  "filename": "jump_twice"
+ },
+ {
+  "prompt": "A person kneels down onto all fours, crawls towards the right, and then stands back up.",
+  "duration": 8.0,
+  "seeds": "1",
+  "filename": "crawl"
+ },
+ {
+  "prompt": "A person balances on one leg with arms out like an airplane.",
+  "duration": 4.0,
+  "seeds": "3",
+  "filename": "airplane"
+ }
+]

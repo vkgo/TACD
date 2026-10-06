@@ -1,0 +1,9 @@
+{
+  "timestamp": "crawl",
+  "text": "A person kneels down onto all fours, crawls towards the right, and then stands back up.",
+  "text_rewrite": [
+    "A person kneels down onto all fours, crawls towards the right, and then stands back up."
+  ],
+  "num_samples": 1,
+  "base_filename": "crawl"
+}

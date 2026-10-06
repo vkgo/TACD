@@ -1,0 +1,9 @@
+{
+  "timestamp": "airplane",
+  "text": "A person balances on one leg with arms out like an airplane.",
+  "text_rewrite": [
+    "A person balances on one leg with arms out like an airplane."
+  ],
+  "num_samples": 1,
+  "base_filename": "airplane"
+}

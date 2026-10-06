@@ -1,0 +1,24 @@
+# One environment for everything in this repository except the UMR worker and SONIC (see humanoid/README.md):
+# the model, demo/, tools/ and the humanoid server, player and SONIC launcher. Python 3.12.
+#   pip install --index-url https://download.pytorch.org/whl/cu129 torch==2.8.0   (or the CPU build)
+#   pip install -r requirements.txt
+transformers==4.55.0
+tokenizers==0.21.4
+huggingface-hub==0.34.4
+safetensors==0.6.2
+einops==0.8.2
+ftfy==6.3.1
+regex==2025.7.34
+torchdiffeq==0.2.5
+numpy==2.1.2
+scipy==1.16.1
+mujoco==3.3.7
+smplx==0.1.28
+onnxruntime-gpu==1.22.0
+imageio==2.37.2
+imageio-ffmpeg==0.6.0
+pillow==11.0.0
+joblib==1.6.0
+PyYAML==6.0.2
+pyzmq==27.2.0
+gradio==6.14.0

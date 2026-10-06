@@ -1,0 +1,9 @@
+{
+  "timestamp": "jump_twice",
+  "text": "A person jumps twice with arms relaxed at the sides.",
+  "text_rewrite": [
+    "A person jumps twice with arms relaxed at the sides."
+  ],
+  "num_samples": 1,
+  "base_filename": "jump_twice"
+}

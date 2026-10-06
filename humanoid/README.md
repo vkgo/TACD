@@ -19,7 +19,7 @@ Python environments (pinned lists in [`envs/`](envs)):
 
 | env | python | used for |
 |---|---|---|
-| `envs/server.txt` | 3.12, torch 2.8.0 cu129 | server, player, SONIC launcher |
+| [`../requirements.txt`](../requirements.txt) | 3.12, torch 2.8.0 cu129 | server, player, SONIC launcher (the repository's main environment) |
 | `envs/umr.txt` | 3.12, torch 2.4.1 cu121 | UMR worker (`UMR_PYTHON`) |
 | `envs/sonic_sim.txt` | 3.10 | SONIC MuJoCo sim (`SONIC_SIM_PYTHON`) |
 | `envs/sonic_deploy.conda.txt` | conda | building and running the SONIC deploy |

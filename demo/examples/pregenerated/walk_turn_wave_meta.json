@@ -1,0 +1,9 @@
+{
+  "timestamp": "walk_turn_wave",
+  "text": "A person walks forward, turns around and waves with the right hand.",
+  "text_rewrite": [
+    "A person walks forward, turns around and waves with the right hand."
+  ],
+  "num_samples": 1,
+  "base_filename": "walk_turn_wave"
+}

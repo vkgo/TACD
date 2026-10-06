@@ -14,9 +14,13 @@ Text-to-motion in 8 sampling steps, distilled on-policy from HY-Motion 1.0 witho
 
 ## Quick start
 
+One Python 3.12 environment covers the model, the demo and the humanoid server:
+
 ```bash
-pip install torch   # on CUDA 12.x drivers: pip install torch --index-url https://download.pytorch.org/whl/cu126
-pip install "transformers>=4.51" safetensors einops numpy ftfy
+git clone https://github.com/vkgo/TACD && cd TACD
+pip install --index-url https://download.pytorch.org/whl/cu129 torch==2.8.0   # or the CPU build of torch 2.8.0
+pip install -r requirements.txt
+hf auth login   # the model is gated: accept its licence on the model page first
 ```
 
 ```python
@@ -32,11 +36,43 @@ out.rot6d    # (1, 120, 22, 6) local joint rotations
 out.transl   # (1, 120, 3)     root translation
 ```
 
+## Visualize
+
+**Web demo.** Type a sentence, set the duration, and the motion plays in a 3D viewer (drag to rotate,
+scroll to zoom); several seeds show several motions side by side.
+
+```bash
+python demo/app.py            # open http://localhost:7860
+```
+
+`--share` adds a temporary public link, `--host 0.0.0.0` serves other machines, `--device cpu` runs
+without a GPU (about 20 s per 4-second motion on two CPU cores).
+
+**HTML file.** Write motions to one HTML file and open it in a browser:
+
+```bash
+python demo/visualize.py "a person walks forward, turns around and waves" --duration 5 --seeds 0,1 --out walk.html
+```
+
+or, for motions generated in your own code:
+
+```python
+import sys; sys.path.insert(0, "demo")
+from visualize import save_html
+
+out = model.generate(["a person jumps twice"], duration=4.0, seed=[0, 1])
+save_html(out, "a person jumps twice", "jump.html")
+```
+
+The viewer loads three.js and the character model from public CDNs, so the browser needs an internet
+connection.
+
 ## Repository layout
 
 | path | contents |
 |---|---|
 | `hf_repo/` | code, config and model card of the Hugging Face model (weights are on the Hub) |
+| `demo/` | web demo and HTML export with a 3D viewer |
 | `humanoid/` | text-to-humanoid application: TACD + retargeting + streaming to a G1 controller |
 | `tools/` | smoke test of the Hugging Face model in a fresh environment |
 
@@ -61,6 +97,8 @@ The code in this repository is released under the [Apache License 2.0](LICENSE),
 
 - the model weights and the files in `hf_repo/`, which contain Tencent HY-Motion 1.0 code, are released
   under the Tencent HY-MOTION 1.0 Community License Agreement ([`hf_repo/LICENSE`](hf_repo/LICENSE));
+- `demo/` contains code from the Tencent HY-Motion-1.0 Space, under the same Tencent agreement
+  ([`demo/NOTICE`](demo/NOTICE));
 - third-party files in `humanoid/` keep their licences ([`humanoid/THIRD_PARTY.md`](humanoid/THIRD_PARTY.md)).
 
 Tencent HY-MOTION 1.0 is licensed under the Tencent HY-MOTION 1.0 Community License Agreement,

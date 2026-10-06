@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Motion Visualization</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        html, body {
+            background: #424242 !important;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .fullscreen-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #424242;
+            overflow: hidden;
+        }
+        #vis3d {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #424242;
+        }
+        #vis3d canvas {
+            display: block;
+            width: 100% !important;
+            height: 100% !important;
+        }
+        .welcome-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+            padding: 30px 50px;
+            border-radius: 16px;
+            font-size: 16px;
+            z-index: 200;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .welcome-overlay h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #4a9eff;
+        }
+        .welcome-overlay p {
+            color: #a0aec0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .control-overlay {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 600px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 15px 20px;
+            border-radius: 12px;
+        }
+        .control-row-minimal {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .progress-container {
+            flex: 1;
+        }
+        .progress-slider-minimal {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+            cursor: not-allowed;
+            -webkit-appearance: none;
+            appearance: none;
+            opacity: 0.5;
+        }
+        .progress-slider-minimal::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .progress-slider-minimal::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4a9eff;
+            cursor: not-allowed;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            margin-top: -6px;
+        }
+        .progress-slider-minimal::-moz-range-track {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .progress-slider-minimal::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4a9eff;
+            cursor: not-allowed;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+        .frame-counter {
+            font-family: 'SF Mono', 'Consolas', monospace;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.5);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            white-space: nowrap;
+            min-width: 80px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<div class="fullscreen-container">
+    <div id="vis3d"></div>
+    <div class="welcome-overlay">
+        <h2>Welcome to TACD!</h2>
+        <p>Enter a text description and generate motion<br>to see the 3D visualization here.</p>
+    </div>
+    <div class="control-overlay">
+        <div class="control-row-minimal">
+            <div class="progress-container">
+                <input type="range" class="progress-slider-minimal" min="0" max="100" value="0" disabled>
+            </div>
+            <div class="frame-counter">
+                <span>0</span> / <span>0</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+</script>
+
+<script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    function createBaseChessboard(
+        grid_size = 50,
+        divisions = 50,
+        white = "#ffffff",
+        black = "#3a3a3a",
+        texture_size = 1024
+    ) {
+        var adjusted_texture_size = Math.floor(texture_size / divisions) * divisions;
+        var canvas = document.createElement("canvas");
+        canvas.width = canvas.height = adjusted_texture_size;
+        var context = canvas.getContext("2d");
+        context.imageSmoothingEnabled = false;
+
+        var step = adjusted_texture_size / divisions;
+        for (var i = 0; i < divisions; i++) {
+            for (var j = 0; j < divisions; j++) {
+                context.fillStyle = (i + j) % 2 === 0 ? white : black;
+                context.fillRect(i * step, j * step, step, step);
+            }
+        }
+
+        var texture = new THREE.CanvasTexture(canvas);
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        texture.magFilter = THREE.NearestFilter;
+        texture.minFilter = THREE.NearestFilter;
+        texture.generateMipmaps = false;
+
+        var planeGeometry = new THREE.PlaneGeometry(grid_size, grid_size);
+
+        var planeMaterial = new THREE.MeshStandardMaterial({
+            map: texture,
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.85,
+            roughness: 0.9,
+            metalness: 0.1,
+            emissiveIntensity: 0.05,
+        });
+
+        var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        plane.receiveShadow = true;
+
+        return plane;
+    }
+
+    function getChessboardXZ() {
+        var plane = createBaseChessboard();
+        plane.rotation.x = -Math.PI / 2;
+        plane.name = 'ground';
+        plane.receiveShadow = true;
+        return plane;
+    }
+
+    let scene, camera, renderer, controls;
+
+    function init() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 50);
+        renderer = new THREE.WebGLRenderer({ antialias: true, logarithmicDepthBuffer: true });
+
+        // Camera setup
+        camera.up.set(0, 1, 0);
+        camera.position.set(3, 2.5, 5);
+        camera.lookAt(new THREE.Vector3(0, 1, 0));
+
+        // Scene background and fog
+        scene.background = new THREE.Color(0x424242);
+        scene.fog = new THREE.FogExp2(0x424242, 0.06);
+
+        // Renderer setup
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.0;
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(width, height);
+
+        // Lights
+        const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
+        hemisphereLight.position.set(0, 2, 0);
+        scene.add(hemisphereLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        directionalLight.position.set(3, 5, 4);
+        directionalLight.castShadow = true;
+        directionalLight.shadow.mapSize.width = 2048;
+        directionalLight.shadow.mapSize.height = 2048;
+        directionalLight.shadow.camera.near = 0.5;
+        directionalLight.shadow.camera.far = 50;
+        directionalLight.shadow.camera.left = -10;
+        directionalLight.shadow.camera.right = 10;
+        directionalLight.shadow.camera.top = 10;
+        directionalLight.shadow.camera.bottom = -10;
+        directionalLight.shadow.bias = -0.0001;
+        scene.add(directionalLight);
+
+        const fillLight = new THREE.DirectionalLight(0xaaccff, 0.5);
+        fillLight.position.set(-3, 3, -2);
+        scene.add(fillLight);
+
+        const rimLight = new THREE.DirectionalLight(0xffeedd, 0.4);
+        rimLight.position.set(0, 4, -5);
+        scene.add(rimLight);
+
+        // Ground
+        scene.add(getChessboardXZ());
+
+        // Add to DOM
+        var container = document.getElementById('vis3d');
+        container.appendChild(renderer.domElement);
+
+        // Controls
+        controls = new OrbitControls(camera, renderer.domElement);
+        controls.minDistance = 1;
+        controls.maxDistance = 15;
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.target.set(0, 0.5, 0);
+        controls.update();
+
+        window.addEventListener('resize', onWindowResize);
+        animate();
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        if (controls && controls.enableDamping) {
+            controls.update();
+        }
+        renderer.render(scene, camera);
+    }
+
+    function onWindowResize() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+    }
+
+    init();
+</script>
+</body>
+</html>
+

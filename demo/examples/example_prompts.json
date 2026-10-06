@@ -1,0 +1,14 @@
+[
+ ["A person walks forward, turns around and waves with the right hand.", 5.0],
+ ["A person jumps twice with arms relaxed at the sides.", 4.0],
+ ["A person kneels down onto all fours, crawls towards the right, and then stands back up.", 8.0],
+ ["A person balances on one leg with arms out like an airplane.", 4.0],
+ ["A person kicks forward with the right leg.", 3.0],
+ ["A person punches forward with the left fist and then the right fist.", 3.0],
+ ["A person bows forward and stands back up.", 3.0],
+ ["A person claps their hands in front of the chest.", 3.0],
+ ["A person steps to the left and then steps to the right.", 4.0],
+ ["A person sits on a chair behind them and then stands back up.", 5.0],
+ ["A person paddles a kayak alternating left and right.", 5.0],
+ ["A person walks forward and then turns around and walks in the opposite direction.", 6.0]
+]

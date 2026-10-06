@@ -1,0 +1,18 @@
+Tencent HY-MOTION 1.0 is licensed under the Tencent HY-MOTION 1.0 Community License Agreement, Copyright © 2025 Tencent. All Rights Reserved. The trademark rights of “Tencent HY” are owned by Tencent or its affiliate.
+
+This directory contains code from the Tencent HY-Motion-1.0 Space
+(https://huggingface.co/spaces/tencent/HY-Motion-1.0), released under that Agreement (a copy is in
+../hf_repo/LICENSE):
+  - hy_viewer/ (the Space's hymotion/ directory, renamed):
+      pipeline/body_model.py, utils/geometry.py, utils/visualize_mesh_web.py: unchanged;
+      utils/gradio_css.py: header, footer and placeholder text changed;
+  - scripts/gradio/templates/index_wooden_static.html: unchanged;
+  - scripts/gradio/templates/placeholder_scene.html: welcome title changed;
+  - app.py: written after the Space's gradio_app.py; the model is TACD, prompt rewriting, CFG and FBX
+    export are removed.
+visualize.py and examples/ are by the TACD authors.
+
+Powered by Tencent HY.
+
+Loaded by the browser at view time from their original locations (not redistributed here): three.js
+and the wooden character model used by the viewer.
