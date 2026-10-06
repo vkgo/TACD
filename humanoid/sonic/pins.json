@@ -1,0 +1,63 @@
+{
+  "gr00t_wholebodycontrol": {
+    "repo": "https://github.com/NVlabs/GR00T-WholeBodyControl",
+    "commit": "7f151314d4d1606544bf249d2a7a1cb754c64582"
+  },
+  "gear_sonic_hf": {
+    "repo": "nvidia/GEAR-SONIC",
+    "revision": "6733128a3d8a523b1418b06bca3cdf61c8b0987f",
+    "deploy_files": {
+      "sonic_v1_1/model_encoder.onnx": {
+        "sha256": "fb97de22819b2057b41459802128d91723d91a25f0ad73e7bfc41a9cf8365bae",
+        "dest": "gear_sonic_deploy/policy/sonic_v1_1/model_encoder.onnx"
+      },
+      "sonic_v1_1/model_decoder.onnx": {
+        "sha256": "34bae8570d4a4421a5391a5c2befd745d4a02d182ec539e5f9da44c091c67509",
+        "dest": "gear_sonic_deploy/policy/sonic_v1_1/model_decoder.onnx"
+      },
+      "sonic_v1_1/observation_config.yaml": {
+        "sha256": "4a67713b310932e50aca81f19188c8d76013148e98b15c8b5bbea995f12e59f0",
+        "dest": "gear_sonic_deploy/policy/sonic_v1_1/observation_config.yaml"
+      },
+      "planner_sonic.onnx": {
+        "sha256": "39b553e197f62f077975ba38512bc04781a3fc37c2af7c6756e04629f760edea",
+        "dest": "gear_sonic_deploy/planner/target_vel/V2/planner_sonic.onnx"
+      }
+    },
+    "isaaclab_files": {
+      "sonic_v1_1/last.pt": {
+        "sha256": "af24831ae59424a0cf92cb56e9bb6dc1a59ab859fd055ba13187e9e6f0a59f43"
+      },
+      "sonic_v1_1/config.yaml": {
+        "sha256": "66dea204cd1576789820be0df8ca29a02b578a69764e12587171b81b0f39c24a"
+      },
+      "sonic_v1_1/model_config.yaml": {
+        "sha256": "63fd03c6519e11305114c7869a91cab690ed6729d76d97f8c4bc1dfa04ce4e21"
+      }
+    }
+  },
+  "deploy_build": {
+    "tensorrt": {
+      "version": "10.13.3.9",
+      "archive": "TensorRT-10.13.3.9.Linux.x86_64-gnu.cuda-12.9.tar.gz",
+      "url": "https://developer.nvidia.com/downloads/compute/machine-learning/tensorrt/10.13.3/tars/TensorRT-10.13.3.9.Linux.x86_64-gnu.cuda-12.9.tar.gz",
+      "sha256": "a40650fd51f096969db072edf216a5026e61c71157bc87f475a8549681e09d34"
+    },
+    "onnxruntime": {
+      "version": "1.16.3",
+      "archive": "onnxruntime-linux-x64-1.16.3.tgz",
+      "url": "https://github.com/microsoft/onnxruntime/releases/download/v1.16.3/onnxruntime-linux-x64-1.16.3.tgz",
+      "sha256": "b072f989d6315ac0e22dcb4771b083c5156d974a3496ac3504c77f4062eb248e"
+    },
+    "boost_headers": {
+      "version": "1.90.0",
+      "archive": "libboost-headers-1.90.0-h707e725_3.conda",
+      "url": "https://conda.anaconda.org/conda-forge/noarch/libboost-headers-1.90.0-h707e725_3.conda",
+      "sha256": "ca00a55588bd34d7cb8b5ffa9ad535bf3a1e16a88fea6b5fb98a22e76e69b673"
+    }
+  },
+  "umr": {
+    "repo": "https://github.com/hanyang9/UMR",
+    "commit": "c56b6301ded02a187a30cc6aafa4f535735104d2"
+  }
+}

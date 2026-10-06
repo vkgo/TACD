@@ -1,0 +1,13 @@
+Tencent HY-MOTION 1.0 is licensed under the Tencent HY-MOTION 1.0 Community License Agreement, Copyright © 2025 Tencent. All Rights Reserved. The trademark rights of “Tencent HY” are owned by Tencent or its affiliate.
+
+This repository contains a Model Derivative of Tencent HY-MOTION 1.0 (a student model distilled from
+HY-Motion-1.0 and initialised from HY-Motion-1.0-Lite) and code derived from Tencent HY-MOTION 1.0.
+Files derived from Tencent HY-MOTION 1.0 carry a notice stating how they were changed
+(tacd_mmdit.py, modeling_tacd.py). A copy of the Agreement is in LICENSE.
+
+Powered by Tencent HY.
+
+Third-party components that are NOT redistributed here and are downloaded from their original
+repositories at run time:
+  - Qwen/Qwen3-0.6B (Apache License 2.0)
+  - openai/clip-vit-large-patch14 (MIT License)

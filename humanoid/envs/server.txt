@@ -1,0 +1,22 @@
+# Text server, MuJoCo player and SONIC launcher (python 3.12).
+#   pip install --index-url https://download.pytorch.org/whl/cu129 torch==2.8.0
+#   pip install -r server.txt
+transformers==4.55.0
+tokenizers==0.21.4
+huggingface-hub==0.34.4
+safetensors==0.6.2
+einops==0.8.2
+ftfy==6.3.1
+regex==2025.7.34
+torchdiffeq==0.2.5
+numpy==2.1.2
+scipy==1.16.1
+mujoco==3.3.7
+smplx==0.1.28
+onnxruntime-gpu==1.22.0
+imageio==2.37.2
+imageio-ffmpeg==0.6.0
+pillow==11.0.0
+joblib==1.6.0
+PyYAML==6.0.2
+pyzmq==27.2.0
