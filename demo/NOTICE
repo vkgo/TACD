@@ -10,7 +10,7 @@ This directory contains code from the Tencent HY-Motion-1.0 Space
   - scripts/gradio/templates/placeholder_scene.html: welcome title changed;
   - app.py: written after the Space's gradio_app.py; the model is TACD, prompt rewriting, CFG and FBX
     export are removed.
-visualize.py and examples/ are by the TACD authors.
+visualize.py, examples/ and assets/ are by the TACD authors.
 
 Powered by Tencent HY.
 

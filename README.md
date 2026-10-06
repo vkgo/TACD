@@ -45,6 +45,8 @@ scroll to zoom); several seeds show several motions side by side.
 python demo/app.py            # open http://localhost:7860
 ```
 
+<img src="demo/assets/web_demo.png" alt="TACD web demo" width="720">
+
 `--share` adds a temporary public link, `--host 0.0.0.0` serves other machines, `--device cpu` runs
 without a GPU (about 20 s per 4-second motion on two CPU cores).
 
