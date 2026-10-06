@@ -57,6 +57,21 @@ out.transl   # (1, 120, 3)     root translation
 The text encoders (`Qwen/Qwen3-0.6B`, `openai/clip-vit-large-patch14`) are downloaded on first use;
 for local copies, call `model.load_text_encoders(llm_path=..., clip_path=...)`.
 
+## GitHub repository
+
+[github.com/vkgo/TACD](https://github.com/vkgo/TACD) has the code around this model:
+
+- [`humanoid/`](https://github.com/vkgo/TACD/tree/main/humanoid) drives a Unitree G1 from text: a resident
+  server generates with this model, retargets with UMR and streams the motion to NVIDIA's SONIC controller;
+  type a prompt, press Enter
+- [`tools/fresh_env_test.py`](https://github.com/vkgo/TACD/blob/main/tools/fresh_env_test.py) checks the
+  model in a new environment
+
+```bash
+git clone https://github.com/vkgo/TACD && cd TACD
+python tools/fresh_env_test.py --repo weijinhuang/TACD-HY-Motion-Lite --out check.npz
+```
+
 ## Results
 
 HumanML3D test set:
